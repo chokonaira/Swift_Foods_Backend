@@ -4,8 +4,13 @@ class UserController < ApplicationController
     @user = User.new(signup_params)
     
     if @user.valid? 
-      @user.save
-      render json: @user, status: 201
+      existing_user = User.find_by(:email => params[:email])
+      if(existing_user.present?)
+        render json: { message: "User with Email: " + params[:email] + " already exist" }, status: 401
+      else
+        @user.save
+        render json: @user, status: 201
+      end
     else
       render json: @user.errors.details, status: 500
     end
