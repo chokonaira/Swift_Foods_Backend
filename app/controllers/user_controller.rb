@@ -19,9 +19,9 @@ class UserController < ApplicationController
   end
 
   def login
-    user = authenticate(login_params[:email], login_params[:password])
-    if user
-      user_id = user.id
+    auth_user = authenticate_user(login_params[:email], login_params[:password])
+    if auth_user
+      user_id = auth_user.id
       token = JsonWebToken.encode({ "id" => user_id, "email" => login_params[:email]})
       render json: { message: "Login succesful", "token": token, "id": user_id }, status: 200
     else
@@ -44,11 +44,11 @@ class UserController < ApplicationController
     decripted_password = BCrypt::Password.new(password)
     return decripted_password
   end
-  def authenticate(email, password)
+  def authenticate_user(email, password)
     auth_user = User.find_by_email(email)
     database_password = auth_user.password
     decripted_password = decript_password(database_password)
-    if decripted_password == password
+    if auth_user && decripted_password == password
       return auth_user
     end
     render json: { error: "Invalid email or password", status: 403 }, :status => :forbidden
