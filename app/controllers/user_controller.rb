@@ -10,8 +10,7 @@ class UserController < ApplicationController
       if existing_user.present?
         render json: { message: "User with Email: " + params[:email] + " already exist" }, status: 401
       else
-        encripted_password = BCrypt::Password.create(params[:password])
-        @user.password = encripted_password
+        encripted_password(params[:password])
         @user.save
         render json: { message: "Signup succesful", id: @user[:id], email: @user[:email] }, status: 201
       end
@@ -23,5 +22,9 @@ class UserController < ApplicationController
   private
   def signup_params
     params.require(:user).permit(:first_name, :last_name, :email, :password, :phone)
+  end
+  def encripted_password(password)
+    password = BCrypt::Password.create(params[:password])
+    @user.password = password
   end
 end
