@@ -11,6 +11,8 @@ gem 'mysql2', '>= 0.4.4'
 gem 'puma', '~> 4.1'
 # Use pg to database
 gem 'pg', '~> 0.18.4'
+# use JWT
+gem 'jwt', '~> 2.2', '>= 2.2.1'
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 6'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker

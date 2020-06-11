@@ -1,5 +1,3 @@
-require 'bcrypt'
-
 class UserController < ApplicationController
   skip_before_action :verify_authenticity_token
   def create
@@ -10,9 +8,10 @@ class UserController < ApplicationController
       if existing_user.present?
         render json: { message: "User with Email: " + params[:email] + " already exist" }, status: 401
       else
-        encripted_password(params[:password])
+        token = JsonWebToken.encode({ "id" => @user.id, "email" => @user.email })
+        encript_password(params[:password])
         @user.save
-        render json: { message: "Signup succesful", id: @user[:id], email: @user[:email] }, status: 201
+        render json: { message: "Signup succesful", token: token }, status: 201
       end
     else
       render json: @user.errors.details, status: 500
@@ -23,8 +22,15 @@ class UserController < ApplicationController
   def signup_params
     params.require(:user).permit(:first_name, :last_name, :email, :password, :phone)
   end
-  def encripted_password(password)
-    password = BCrypt::Password.create(params[:password])
-    @user.password = password
+  def login_params
+    params.require(:user).permit(:email, :password)
+  end
+  def encript_password(password)
+    encripted_password = BCrypt::Password.create(password)
+    @user.password = encripted_password
+  end
+  def decript_password(password)
+    decripted_password = BCrypt::Password.new(password)
+    @user.password = decripted_password
   end
 end
