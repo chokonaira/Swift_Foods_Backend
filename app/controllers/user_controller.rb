@@ -1,5 +1,6 @@
 class UserController < ApplicationController
-  skip_before_action :verify_authenticity_token
+  skip_before_action :verify_authenticity_token, :authenticate_request, only: [:index, :create]
+
   def create
     @user = User.new(signup_params)
     
@@ -8,9 +9,9 @@ class UserController < ApplicationController
       if existing_user.present?
         render json: { message: "User with Email: " + params[:email] + " already exist" }, status: 401
       else
-        token = JsonWebToken.encode({ "id" => @user.id, "email" => @user.email })
         encript_password(params[:password])
         @user.save
+        token = JsonWebToken.encode({ "id" => @user.id, "email" => @user.email })
         render json: { message: "Signup succesful", token: token }, status: 201
       end
     else
