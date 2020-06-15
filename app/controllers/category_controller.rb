@@ -16,11 +16,22 @@ class CategoryController < ApplicationController
   end
 
   def get_all
-    categories = Category.all
+    categories = Category.all.order(:id)
     if categories
       render json: { message: "Categories fetched succesfully", "categories": categories }, status: 200
     else
       render json: { message: "Categories empty" }, status: 203
+    end
+  end
+
+  def update
+    category = Category.find_by(:id => params[:id])
+    if category 
+      category_name = {:name => params[:name]}
+      category.update(category_name)
+      render json: { message: "Category updated succesfully", "category": category }, status: 200
+    else
+      render json: { message: "Category does not exist" }, status: 404
     end
   end
   private
