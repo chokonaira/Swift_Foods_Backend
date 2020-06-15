@@ -15,6 +15,14 @@ class CategoryController < ApplicationController
     end
   end
 
+  def get_all
+    categories = Category.all
+    if categories
+      render json: { message: "Categories fetched succesfully", "categories": categories }, status: 200
+    else
+      render json: { message: "Categories empty" }, status: 203
+    end
+  end
   private
   def category_param
     params.require(:category).permit(:name)
