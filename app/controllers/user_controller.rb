@@ -27,7 +27,7 @@ class UserController < ApplicationController
       token = JsonWebToken.encode({ "id" => user_id, "email" => login_params[:email]})
       render json: { message: "Login succesful", "token": token, "id": user_id }, status: 200
     else
-      render json: { error: "Internal server eror" }, status: 500
+      render json: { error: "Internal server error" }, status: 500
     end
   end
 
