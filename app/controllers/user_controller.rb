@@ -1,7 +1,8 @@
 class UserController < ApplicationController
-  skip_before_action :verify_authenticity_token, :authenticate_request, only: [:index, :create]
+  skip_before_action :verify_authenticity_token, :authenticate_request, only: [:index, :signup]
 
-  def create
+  def signup
+
     @user = User.new(signup_params)
     
     if @user.valid? 
@@ -19,6 +20,17 @@ class UserController < ApplicationController
     end
   end
 
+  def login
+    auth_user = authenticate_user(login_params[:email], login_params[:password])
+    if auth_user
+      user_id = auth_user.id
+      token = JsonWebToken.encode({ "id" => user_id, "email" => login_params[:email]})
+      render json: { message: "Login succesful", "token": token, "id": user_id }, status: 200
+    else
+      render json: { error: "Internal server eror" }, status: 500
+    end
+  end
+
   private
   def signup_params
     params.require(:user).permit(:first_name, :last_name, :email, :password, :phone)
@@ -32,6 +44,15 @@ class UserController < ApplicationController
   end
   def decript_password(password)
     decripted_password = BCrypt::Password.new(password)
-    @user.password = decripted_password
+    return decripted_password
+  end
+  def authenticate_user(email, password)
+    auth_user = User.find_by_email(email)
+    database_password = auth_user.password
+    decripted_password = decript_password(database_password)
+    if auth_user && decripted_password == password
+      return auth_user
+    end
+    render json: { error: "Invalid email or password", status: 403 }, :status => :forbidden
   end
 end
