@@ -34,6 +34,16 @@ class CategoryController < ApplicationController
       render json: { message: "Category does not exist" }, status: 404
     end
   end
+
+  def delete
+    category = Category.find_by(:id => params[:id])
+    if category 
+      Category.delete(category)
+      render json: { message: "Category deleted succesfully" }, status: 200
+    else
+      render json: { message: "Category does not exist" }, status: 404
+    end
+  end
   private
   def category_param
     params.require(:category).permit(:name)
