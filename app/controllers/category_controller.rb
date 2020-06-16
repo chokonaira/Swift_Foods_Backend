@@ -1,5 +1,5 @@
 class CategoryController < ApplicationController
-  def add
+  def add_a_category
     @category = Category.new(category_param)
 
     if @category.valid?
@@ -15,16 +15,26 @@ class CategoryController < ApplicationController
     end
   end
 
-  def get_all
+  def get_all_category
     categories = Category.all.order(:id)
     if categories
       render json: { message: "Categories fetched succesfully", "categories": categories }, status: 200
+    else
+      render json: { message: "Categories empty", "categories": [] }, status: 203
+    end
+  end
+
+  def get_specific_category_details
+    category = Category.find_by(:id => params[:id])
+    if category
+      products = Product.where(:category_id => params[:id])
+      render json: { message: "Categories details fetched succesfully", "category": category, "products": products }, status: 200
     else
       render json: { message: "Categories empty" }, status: 203
     end
   end
 
-  def update
+  def update_a_category
     category = Category.find_by(:id => params[:id])
     if category 
       category_name = {:name => params[:name]}
@@ -35,7 +45,7 @@ class CategoryController < ApplicationController
     end
   end
 
-  def delete
+  def delete_a_category
     category = Category.find_by(:id => params[:id])
     if category 
       Category.delete(category)

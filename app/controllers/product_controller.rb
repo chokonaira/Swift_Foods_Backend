@@ -1,6 +1,6 @@
 class ProductController < ApplicationController
   skip_before_action :verify_authenticity_token
-  def add
+  def add_a_product
     @product = Product.new(product_params)
     if @product.valid?
       update_image
