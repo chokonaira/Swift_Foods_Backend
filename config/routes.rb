@@ -2,9 +2,10 @@ Rails.application.routes.draw do
   root "welcome#index"
   post "signup" => "user#signup", only: [:create]
   post "login" => "user#login"
-  post "product/categories/add" => "category#add" 
-  get "product/categories" => "category#get_all" 
-  patch "product/categories/:id" => "category#update" 
-  delete "product/categories/:id" => "category#delete"
-  post "product/add" => "product#add" 
+  post "product/categories/add" => "category#add_a_category" 
+  get "product/categories" => "category#get_all_category" 
+  get "product/categories/:id" => "category#get_specific_category_details" 
+  patch "product/categories/:id" => "category#update_a_category" 
+  delete "product/categories/:id" => "category#delete_a_category"
+  post "product/add" => "product#add_a_product" 
 end
