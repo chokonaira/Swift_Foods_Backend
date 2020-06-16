@@ -5,5 +5,6 @@ Rails.application.routes.draw do
   post "product/categories/add" => "category#add" 
   get "product/categories" => "category#get_all" 
   patch "product/categories/:id" => "category#update" 
-  delete "product/categories/:id" => "category#delete" 
+  delete "product/categories/:id" => "category#delete"
+  post "product/add" => "product#add" 
 end
