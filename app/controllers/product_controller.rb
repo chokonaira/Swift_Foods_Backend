@@ -18,6 +18,15 @@ class ProductController < ApplicationController
       render json: product.errors.details, status: 401
     end
   end
+
+  def get_all_products
+    products = Product.all.order(:id)
+    if products
+      render json: { message: "Products fetched succesfully", "Products": products }, status: 200
+    else
+      render json: { message: "Products empty", "Products": [] }, status: 203
+    end
+  end
   
   private
   def product_params
