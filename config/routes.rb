@@ -10,4 +10,5 @@ Rails.application.routes.draw do
   post "products/add" => "product#add_a_product" 
   get "products/:id" => "product#get_a_product_details" 
   get "products" => "product#get_all_products"
+  patch "products/update/:id" => "product#update_a_product_details"
 end
