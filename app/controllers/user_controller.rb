@@ -2,9 +2,7 @@ class UserController < ApplicationController
   skip_before_action :verify_authenticity_token, :authenticate_request, only: [:index, :signup]
 
   def signup
-
     @user = User.new(signup_params)
-    
     if @user.valid? 
       existing_user = User.find_by(:email => params[:email])
       if existing_user.present?
