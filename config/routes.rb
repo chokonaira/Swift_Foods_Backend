@@ -11,4 +11,6 @@ Rails.application.routes.draw do
   get "products/:id" => "product#get_a_product_details" 
   get "products" => "product#get_all_products"
   patch "products/update/:id" => "product#update_a_product_details"
+  patch "products/image/:id" => "product#update_food_image"
+  delete "products/:id" => "product#delete_a_product"
 end
