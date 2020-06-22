@@ -1,22 +1,18 @@
 class UserController < ApplicationController
-  skip_before_action :verify_authenticity_token, :authenticate_request, only: [:index, :signup]
+  skip_before_action :verify_authenticity_token, :authenticate_request, only: [:index, :signup, :login]
 
   def signup
     @user = User.new(signup_params)
     if @user.valid? 
-      existing_user = User.find_by(:email => params[:email])
-      if existing_user.present?
-        render json: { message: "User with Email: " + params[:email] + " already exist" }, status: 401
-      else
         encript_password(params[:password])
         @user.save
         token = JsonWebToken.encode({ "id" => @user.id, "email" => @user.email })
         render json: { message: "Signup succesful", token: token }, status: 201
-      end
     else
       render json: @user.errors.details, status: 500
     end
   end
+
 
   def login
     auth_user = authenticate_user(login_params[:email], login_params[:password])
@@ -45,12 +41,17 @@ class UserController < ApplicationController
     return decripted_password
   end
   def authenticate_user(email, password)
-    auth_user = User.find_by_email(email)
-    database_password = auth_user.password
-    decripted_password = decript_password(database_password)
-    if auth_user && decripted_password == password
-      return auth_user
+    auth_user = User.find_by_email!(email)
+    if auth_user.present?
+      database_password = auth_user.password
+      decripted_password = decript_password(database_password)
+      if decripted_password == password
+        return auth_user 
+      else
+        render json: { error: "Invalid password, try again"},  status: 401 
+      end
+    else
+      render json: { error: "User with these credentials does now exist" }, status: 404 
     end
-    render json: { error: "Invalid email or password", status: 403 }, :status => :forbidden
   end
 end
