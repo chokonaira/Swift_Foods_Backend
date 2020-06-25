@@ -35,7 +35,9 @@ class ProductController < ApplicationController
       payload = JSON.parse(request.body.read)
       update_detail = custom_compact(payload)
       product.update!(update_detail)
-      render json: { message: "Products details updated succesfully", product: product }, status: 200
+      render json: { message: "Products details updated succesfully", 
+                     product: product }, 
+                     status: 200
     else
       render json: product.errors.details, status: 401
     end
