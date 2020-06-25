@@ -16,4 +16,5 @@ Rails.application.routes.draw do
   delete "products/:id" => "product#delete_a_product"
   post "hotels_restaurants/add" => "hotels_restaurants#add_a_hotel_and_restaurant" 
   get "hotels_restaurants" => "hotels_restaurants#get_all_hotel_and_restaurant" 
+  get "hotels_restaurants/:id" => "hotels_restaurants#get_specific_hotel_and_restaurant_details"
 end
