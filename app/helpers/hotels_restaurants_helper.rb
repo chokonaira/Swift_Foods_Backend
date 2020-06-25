@@ -1,0 +1,2 @@
+module HotelsRestaurantsHelper
+end

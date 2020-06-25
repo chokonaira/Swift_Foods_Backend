@@ -18,17 +18,16 @@ class CategoryController < ApplicationController
   def get_all_category
     categories = Category.all.order(:id)
     if categories
-      render json: { message: "Categories fetched succesfully", "categories": categories }, status: 200
+      render json: { message: "Categories fetched succesfully", categories: categories }, status: 200
     else
-      render json: { message: "Categories empty", "categories": [] }, status: 203
+      render json: { message: "Categories empty", categories: [] }, status: 203
     end
   end
 
   def get_specific_category_details
     category = Category.find_by(:id => params[:id])
     if category
-      products = Product.where(:category_id => params[:id])
-      render json: { message: "Categories details fetched succesfully", "category": category, "products": products }, status: 200
+      render json: { message: "Categories details fetched succesfully", category: category, products: category.products }, status: 200
     else
       render json: { message: "Categories empty" }, status: 203
     end
@@ -39,7 +38,7 @@ class CategoryController < ApplicationController
     if category 
       category_name = {:name => params[:name]}
       category.update(category_name)
-      render json: { message: "Category updated succesfully", "category": category }, status: 200
+      render json: { message: "Category updated succesfully", category: category }, status: 200
     else
       render json: { message: "Category does not exist" }, status: 404
     end
