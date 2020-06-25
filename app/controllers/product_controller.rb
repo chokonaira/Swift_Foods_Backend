@@ -23,9 +23,9 @@ class ProductController < ApplicationController
   def get_all_products
     products = Product.all.order(:id)
     if products.present?
-      render json: { message: "Products fetched succesfully", "Products": products }, status: 200
+      render json: { message: "Products fetched succesfully", products: products }, status: 200
     else
-      render json: { message: "Products empty", "Products": [] }, status: 203
+      render json: { message: "Products empty", products: [] }, status: 203
     end
   end
 
@@ -35,7 +35,9 @@ class ProductController < ApplicationController
       payload = JSON.parse(request.body.read)
       update_detail = custom_compact(payload)
       product.update!(update_detail)
-      render json: { message: "Products details updated succesfully", "Product": product }, status: 200
+      render json: { message: "Products details updated succesfully", 
+                     product: product }, 
+                     status: 200
     else
       render json: product.errors.details, status: 401
     end
