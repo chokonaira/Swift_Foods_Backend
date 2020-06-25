@@ -43,14 +43,6 @@ class ProductController < ApplicationController
     end
   end
 
-  def update_user
-    current_user = User.find(params[:id])
-    payload = JSON.parse(request.body.read)
-    update_detail = custom_compact(payload)
-    current_user.update!(update_detail)
-    render json: current_user, status: :ok
-  end
-  
   def update_food_image
     product = Product.find(params[:id])
     if product.present?
