@@ -1,47 +1,60 @@
 class HotelsRestaurantsController < ApplicationController
   # validate :no_multi_day_events
-  def add_a_hotel_and_restaurant
-    @hotel_restaurant = HotelsRestaurant.new(hotel_restaurant_params)
+  def add_a_restaurant
+    @restaurant = HotelsRestaurant.new(restaurant_params)
 
-    if @hotel_restaurant.valid?
-      existing_hotel_restaurant = HotelsRestaurant.find_by(:name => params[:name])
-      if existing_hotel_restaurant.present?
-        render json: { message: "Hotels and Restaurant: " + params[:name] + " already exist" }, 
+    if @restaurant.valid?
+      existing_restaurant = HotelsRestaurant.find_by(:name => params[:name])
+      if existing_restaurant.present?
+        render json: { message: "Restaurant: " + params[:name] + " already exist" }, 
                         status: 401
       else
-        @hotel_restaurant.save
-        render json: { message: "Hotels and Restaurant: " + params[:name] + ", added succesfully", 
-                      id: @hotel_restaurant.id}, 
+        @restaurant.save
+        render json: { message: "Restaurant: " + params[:name] + ", added succesfully", 
+                      id: @restaurant.id}, 
                       status: 201
       end
     else
-      render json: @hotel_restaurant.errors.details, status: 500
+      render json: @restaurant.errors.details, status: 500
     end
   end
 
-  def get_all_hotel_and_restaurant
-    hotel_restaurants = HotelsRestaurant.all.order(:id)
-    if hotel_restaurants
-      render json: { message: "All Hotels and Restaurants fetched succesfully", hotels_restaurants: hotel_restaurants }, status: 200
+  def get_all_restaurants
+    restaurants = HotelsRestaurant.all.order(:id)
+    if restaurants
+      render json: { message: "Restaurants fetched succesfully", hotels_restaurants: restaurants }, status: 200
     else
-      render json: { message: "Hotels and Restaurant empty", hotel_restaurants: [] }, status: 203
+      render json: { message: "Restaurant empty", restaurants: [] }, status: 203
     end
   end
 
-  def get_specific_hotel_and_restaurant_details
-    hotel_restaurant = HotelsRestaurant.find_by(:id => params[:id])
-    if hotel_restaurant
-      render json: { message: "Hotels and Restaurant detail fetched succesfully", 
-                     hotel_restaurant: hotel_restaurant, 
-                     categories: hotel_restaurant.categories },
+  def get_specific_restaurant_details
+    restaurant = HotelsRestaurant.find_by(:id => params[:id])
+    if restaurant
+      render json: { message: "Restaurant detail fetched succesfully", 
+                     restaurant: restaurant, 
+                     categories: restaurant.categories },
                      status: 200
     else
-      render json: { message: "Hotels and Restaurant empty" }, status: 203
+      render json: { message: "Restaurant empty" }, status: 203
+    end
+  end
+
+
+  def update_a_restaurant_details
+    restaurant = HotelsRestaurant.find_by(:id => params[:id])
+    if restaurant 
+      restaurant_name = {:name => params[:name]}
+      restaurant.update(restaurant_params)
+      render json: { message: "Restaurant detail updated succesfully", 
+                     restaurant: restaurant }, status: 200
+    else
+      render json: { message: "Restaurant does not exist" }, status: 404
     end
   end
 
   private
-  def hotel_restaurant_params
+  def restaurant_params
     params.require(:hotels_restaurant).permit(:name, :address)
   end
 end

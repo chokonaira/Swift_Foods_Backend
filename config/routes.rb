@@ -14,7 +14,8 @@ Rails.application.routes.draw do
   patch "products/update/:id" => "product#update_a_product_details"
   patch "products/image/:id" => "product#update_food_image"
   delete "products/:id" => "product#delete_a_product"
-  post "hotels_restaurants/add" => "hotels_restaurants#add_a_hotel_and_restaurant" 
-  get "hotels_restaurants" => "hotels_restaurants#get_all_hotel_and_restaurant" 
-  get "hotels_restaurants/:id" => "hotels_restaurants#get_specific_hotel_and_restaurant_details"
+  post "restaurants/add" => "hotels_restaurants#add_a_restaurant" 
+  get "restaurants" => "hotels_restaurants#get_all_restaurants" 
+  get "restaurants/:id" => "hotels_restaurants#get_specific_restaurant_details"
+  patch "restaurants/:id" => "hotels_restaurants#update_a_restaurant_details"
 end
