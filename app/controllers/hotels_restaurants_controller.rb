@@ -42,19 +42,34 @@ class HotelsRestaurantsController < ApplicationController
 
 
   def update_a_restaurant_details
+    restaurant = HotelsRestaurant.find(params[:id])
+    if restaurant.present?
+      payload = JSON.parse(request.body.read)
+      update_detail = custom_compact(payload)
+      restaurant.update!(update_detail)
+      render json: { message: "restaurants details updated succesfully", 
+                     restaurant: restaurant }, 
+                     status: 200
+    else
+      render json: restaurant.errors.details, status: 401
+    end
+  end
+
+  def delete_a_restaurant_details
     restaurant = HotelsRestaurant.find_by(:id => params[:id])
     if restaurant 
-      restaurant_name = {:name => params[:name]}
-      restaurant.update(restaurant_params)
-      render json: { message: "Restaurant detail updated succesfully", 
-                     restaurant: restaurant }, status: 200
+      HotelsRestaurant.delete(restaurant)
+      render json: { message: "Restaurant deleted succesfully" }, status: 200
     else
       render json: { message: "Restaurant does not exist" }, status: 404
     end
   end
 
   private
+  def custom_compact(payload)
+    payload.reject { |_, value| value.empty? }
+  end
   def restaurant_params
-    params.require(:hotels_restaurant).permit(:name, :address)
+    params.permit(:name, :address)
   end
 end

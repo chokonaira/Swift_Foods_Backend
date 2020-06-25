@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   get 'hotels_restaurants/add'
   root "welcome#index"
-  post "signup" => "user#signup", only: [:create]
+  post "signup" => "user#signup"
   post "login" => "user#login"
   post "products/categories/add" => "category#add_category" 
   get "products/categories" => "category#get_all_category" 
@@ -18,4 +18,5 @@ Rails.application.routes.draw do
   get "restaurants" => "hotels_restaurants#get_all_restaurants" 
   get "restaurants/:id" => "hotels_restaurants#get_specific_restaurant_details"
   patch "restaurants/:id" => "hotels_restaurants#update_a_restaurant_details"
+  delete "restaurants/:id" => "hotels_restaurants#delete_a_restaurant_details"
 end
