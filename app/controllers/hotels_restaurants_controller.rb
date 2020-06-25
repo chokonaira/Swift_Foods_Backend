@@ -18,7 +18,14 @@ class HotelsRestaurantsController < ApplicationController
     end
   end
 
-
+  def get_all_hotel_and_restaurant
+    hotel_restaurants = HotelsRestaurant.all.order(:id)
+    if hotel_restaurants
+      render json: { message: "Hotels or Restaurant fetched succesfully", hotels_restaurants: hotel_restaurants }, status: 200
+    else
+      render json: { message: "Hotels or Restaurant empty", hotel_restaurants: [] }, status: 203
+    end
+  end
 
   private
   def hotel_restaurant_params
