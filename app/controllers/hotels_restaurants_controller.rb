@@ -66,6 +66,7 @@ class HotelsRestaurantsController < ApplicationController
       render json: { error: "Internal server error" }, status: 500
     end
   end
+  
 
   def delete_a_restaurant_details
     restaurant = HotelsRestaurant.find_by(:id => params[:id])
