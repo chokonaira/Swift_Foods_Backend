@@ -55,6 +55,19 @@ class HotelsRestaurantsController < ApplicationController
     end
   end
 
+  def update_restaurants_image
+    restaurant = HotelsRestaurant.find(params[:id])
+    if restaurant.present?
+      upload_image = Cloudinary::Uploader.upload(params["image_url"], :width=>300, :height=>300, :crop=>"scale")
+      photo = { image_url: upload_image["url"] }
+      restaurant.update!(photo)
+      render json: { message: "Restaurants image uploaded succesfully", url: upload_image["url"] }, status: 200
+    else
+      render json: { error: "Internal server error" }, status: 500
+    end
+  end
+  
+
   def delete_a_restaurant_details
     restaurant = HotelsRestaurant.find_by(:id => params[:id])
     if restaurant 
