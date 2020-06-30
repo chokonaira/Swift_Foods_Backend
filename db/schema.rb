@@ -10,10 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_29_112032) do
+ActiveRecord::Schema.define(version: 2020_06_30_115759) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "basket_items", force: :cascade do |t|
+    t.bigint "quantity", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "baskets", force: :cascade do |t|
+    t.bigint "basket_item_id"
+    t.bigint "product_id"
+    t.bigint "user_id"
+    t.string "delivery_address", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["basket_item_id"], name: "index_baskets_on_basket_item_id"
+    t.index ["product_id"], name: "index_baskets_on_product_id"
+    t.index ["user_id"], name: "index_baskets_on_user_id"
+  end
 
   create_table "categories", force: :cascade do |t|
     t.bigint "hotels_restaurant_id"
@@ -36,6 +54,7 @@ ActiveRecord::Schema.define(version: 2020_06_29_112032) do
     t.string "name", null: false
     t.string "description", null: false
     t.decimal "price", null: false
+    t.decimal "delivery_fee", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "image_url"

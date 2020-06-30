@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'basket/add'
   get 'hotels_restaurants/add'
   root "welcome#index"
   post "signup" => "user#signup"
