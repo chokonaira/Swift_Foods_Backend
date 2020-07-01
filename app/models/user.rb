@@ -2,7 +2,7 @@ class User < ApplicationRecord
   before_create do
     self.password = BCrypt::Password.create(password) if password
   end
-  has_one :basket
+  has_many :basket_items
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :email, presence: true, :uniqueness => true
