@@ -16,21 +16,23 @@ ActiveRecord::Schema.define(version: 2020_06_30_115759) do
   enable_extension "plpgsql"
 
   create_table "basket_items", force: :cascade do |t|
-    t.bigint "user_id"
+    t.bigint "basket_id"
+    t.bigint "product_id"
+    t.string "quantity", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_basket_items_on_user_id"
+    t.index ["basket_id"], name: "index_basket_items_on_basket_id"
+    t.index ["product_id"], name: "index_basket_items_on_product_id"
   end
 
   create_table "baskets", force: :cascade do |t|
-    t.bigint "basket_item_id"
-    t.bigint "product_id"
+    t.bigint "user_id"
     t.string "quantity", null: false
     t.string "delivery_address", null: false
+    t.boolean "isVerified", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["basket_item_id"], name: "index_baskets_on_basket_item_id"
-    t.index ["product_id"], name: "index_baskets_on_product_id"
+    t.index ["user_id"], name: "index_baskets_on_user_id"
   end
 
   create_table "categories", force: :cascade do |t|
