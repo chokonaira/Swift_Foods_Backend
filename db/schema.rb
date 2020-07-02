@@ -27,9 +27,6 @@ ActiveRecord::Schema.define(version: 2020_06_30_115759) do
 
   create_table "baskets", force: :cascade do |t|
     t.bigint "user_id"
-    t.string "quantity", null: false
-    t.string "delivery_address", null: false
-    t.boolean "isVerified", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_baskets_on_user_id"
