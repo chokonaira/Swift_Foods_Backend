@@ -2,7 +2,7 @@ class BasketController < ApplicationController
   def create_basket
     user = User.find_by(:id => params[:user_id])
     if user.present?
-      basket = Basket.new(user.id)
+      basket = Basket.new(:user_id => user.id)
       basket.save
       render json: { message: "Basket created succesfully", basket: basket }, status: 401
     else
