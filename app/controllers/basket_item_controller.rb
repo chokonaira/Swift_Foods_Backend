@@ -21,7 +21,15 @@ class BasketItemController < ApplicationController
       render json: { message: "Basket Item does not exist" }, status: 404
     end
   end
-
+  def delete_all_basket_items
+    basket_items = BasketItem.all.order(:id)
+    if basket_items.present?
+      BasketItem.delete(basket_items)
+      render json: { message: "Basket Items deleted succesfully" }, status: 200
+    else
+      render json: { message: "Basket Items does not exist" }, status: 404
+    end
+  end
   private
   def basket_item_params
     params.permit(:basket_id, :product_id, :quantity)

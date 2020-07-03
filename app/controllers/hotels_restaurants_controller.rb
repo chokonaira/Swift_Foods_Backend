@@ -24,7 +24,7 @@ class HotelsRestaurantsController < ApplicationController
     if restaurants
       render json: { message: "Restaurants fetched succesfully", hotels_restaurants: restaurants }, status: 200
     else
-      render json: { message: "Restaurant empty", restaurants: [] }, status: 203
+      render json: { message: "Restaurant empty", restaurants: [] }, status: 200
     end
   end
 

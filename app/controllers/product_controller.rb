@@ -25,7 +25,7 @@ class ProductController < ApplicationController
     if products.present?
       render json: { message: "Products fetched succesfully", products: products }, status: 200
     else
-      render json: { message: "Products empty", products: [] }, status: 203
+      render json: { message: "Products empty", products: [] }, status: 200
     end
   end
 

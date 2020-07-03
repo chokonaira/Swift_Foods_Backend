@@ -1,7 +1,4 @@
 Rails.application.routes.draw do
-  get 'basket_item/add'
-  get 'basket/add'
-  get 'hotels_restaurants/add'
   root "welcome#index"
   post "signup" => "user#signup"
   post "login" => "user#login"
@@ -22,8 +19,9 @@ Rails.application.routes.draw do
   patch "restaurants/:id" => "hotels_restaurants#update_a_restaurant_details"
   delete "restaurants/:id" => "hotels_restaurants#delete_a_restaurant_details"
   patch "restaurants/image/:id" => "hotels_restaurants#update_restaurants_image"
-  post "basket_item/add" => "basket_item#add_basket_item"
-  delete "basket_item/:id" => "basket_item#delete_a_basket_item"
-  post "basket/create" => "basket#create_basket"
-  get "basket/:id" => "basket#gets_specific_user_basket"
+  post "basket_items/add" => "basket_item#add_basket_item"
+  delete "basket_items/:id" => "basket_item#delete_a_basket_item"
+  delete "basket_items" => "basket_item#delete_all_basket_items"
+  post "baskets/create" => "basket#create_basket"
+  get "baskets/:user_id" => "basket#gets_specific_user_basket"
 end
