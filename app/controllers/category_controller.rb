@@ -48,7 +48,7 @@ class CategoryController < ApplicationController
 
   def delete_a_category
     category = Category.find_by(:id => params[:id])
-    if category 
+    if category.present? 
       Category.delete(category)
       render json: { message: "Category deleted succesfully" }, status: 200
     else
