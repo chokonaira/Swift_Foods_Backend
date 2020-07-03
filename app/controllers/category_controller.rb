@@ -22,7 +22,7 @@ class CategoryController < ApplicationController
     if categories
       render json: { message: "Categories fetched succesfully", categories: categories }, status: 200
     else
-      render json: { message: "Categories empty", categories: [] }, status: 203
+      render json: { message: "Categories empty", categories: [] }, status: 200
     end
   end
 

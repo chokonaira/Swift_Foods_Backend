@@ -21,7 +21,7 @@ class BasketController < ApplicationController
                      product: basket.products }, 
                      status: 401
     else
-      render json: { message: "Basket does not exist for this user" }, status: 404
+      render json: { message: "Basket empty", basket: [] }, status: 200
     end
   end
 
