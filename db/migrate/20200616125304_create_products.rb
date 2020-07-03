@@ -4,8 +4,8 @@ class CreateProducts < ActiveRecord::Migration[6.0]
       t.belongs_to :category
       t.string :name, null: false
       t.string :description, null: false
-      t.bigint :price, null: false
-      t.bigint :delivery_fee, null: false
+      t.decimal :price, null: false
+      t.decimal :delivery_fee, null: false
 
       t.timestamps null: false
     end

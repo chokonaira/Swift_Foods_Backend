@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2020_06_30_115759) do
   create_table "basket_items", force: :cascade do |t|
     t.bigint "basket_id"
     t.bigint "product_id"
-    t.string "quantity", null: false
+    t.bigint "quantity", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["basket_id"], name: "index_basket_items_on_basket_id"
@@ -65,7 +65,7 @@ ActiveRecord::Schema.define(version: 2020_06_30_115759) do
     t.string "last_name", null: false
     t.string "email", null: false
     t.string "password", null: false
-    t.string "phone", null: false
+    t.bigint "phone", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
