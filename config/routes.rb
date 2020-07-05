@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   delete "restaurants/:id" => "hotels_restaurants#delete_a_restaurant_details"
   patch "restaurants/image/:id" => "hotels_restaurants#update_restaurants_image"
   post "basket_items/add" => "basket_item#add_basket_item"
+  get "basket_items/:id" => "basket_item#get_a_basket_item"
   delete "basket_items/:id" => "basket_item#delete_a_basket_item"
   delete "basket_items" => "basket_item#delete_all_basket_items"
   post "baskets/create" => "basket#create_basket"

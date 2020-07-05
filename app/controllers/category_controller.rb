@@ -29,7 +29,7 @@ class CategoryController < ApplicationController
   def get_specific_category_details
     category = Category.find_by(:id => params[:id])
     if category
-      render json: { message: "Categories details fetched succesfully", category: category, products: category.products }, status: 200
+      render json: { message: "Categories details fetched succesfully", category: category, category_hotel: category.hotels_restaurant, products: category.products }, status: 200
     else
       render json: { message: "Categories empty" }, status: 203
     end

@@ -17,10 +17,10 @@ class BasketController < ApplicationController
     if basket.present?
       render json: { message: "Basket details fectch succesfully", 
                      basket: basket, 
-                     basket_itmes: basket.basket_items,
+                     basket_items: basket.basket_items,
                      product: basket.products }, 
                      status: 401
-    else
+    else  #basket_item.product.category.hotels_restaurant
       render json: { message: "Basket empty", basket: [] }, status: 200
     end
   end
