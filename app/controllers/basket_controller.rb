@@ -6,7 +6,7 @@ class BasketController < ApplicationController
       basket.save
       render json: { message: "Basket created succesfully", 
                      basket: basket }, 
-                     status: 401
+                     status: 201
     else
       render json: { message: "User does not exist" }, status: 404
     end
@@ -19,9 +19,9 @@ class BasketController < ApplicationController
                      basket: basket, 
                      basket_items: basket.basket_items,
                      product: basket.products }, 
-                     status: 401
-    else  #basket_item.product.category.hotels_restaurant
-      render json: { message: "Basket empty", basket: [] }, status: 200
+                     status: 200
+    else  
+      render json: { message: "Oops, this user has no basket, create one first", basket: [] }, status: 200
     end
   end
 
