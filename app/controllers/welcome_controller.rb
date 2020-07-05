@@ -1,5 +1,7 @@
 class WelcomeController < ApplicationController
+  skip_before_action :authenticate_request, only: [:index]
+
   def index
-    render json: { message: "Welcome to Henry Food App" }, status: 200
+    render json: { message: "Welcome to CHOKO Swift Foods" }, status: 200
   end
 end
