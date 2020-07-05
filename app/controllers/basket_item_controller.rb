@@ -12,6 +12,14 @@ class BasketItemController < ApplicationController
       render json: { message: "Product added to Basket", basket_item: basket_item }, status: 201
     end
   end
+  def get_a_basket_item
+    basket_item = BasketItem.find_by(:id => params[:id])
+    if basket_item.present?
+      render json: { message: "Basket Item fetched succesfully", basket_item: basket_item, basket_item_product: basket_item.product }, status: 200
+    else
+      render json: basket_item.errors.details, status: 401
+    end
+  end
   def delete_a_basket_item
     basket_item = BasketItem.find_by(:id => params[:id])
     if basket_item.present?

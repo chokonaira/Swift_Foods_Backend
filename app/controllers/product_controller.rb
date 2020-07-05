@@ -14,7 +14,7 @@ class ProductController < ApplicationController
   def get_a_product_details
     product = Product.find_by(:id => params[:id])
     if product.present?
-      render json: { message: "Product fetched succesfully", product: product }, status: 200
+      render json: { message: "Product fetched succesfully", product: product, product_category: product.category }, status: 200
     else
       render json: product.errors.details, status: 401
     end
