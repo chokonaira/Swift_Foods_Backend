@@ -5,4 +5,7 @@ class Checkout < ApplicationRecord
   validates :delivery_address, presence: true
   validates :phone, presence: true
   validates :payment_verified, presence: false
+
+
+
 end
