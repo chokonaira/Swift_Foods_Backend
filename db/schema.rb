@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_30_115759) do
+ActiveRecord::Schema.define(version: 2020_07_05_012734) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,19 @@ ActiveRecord::Schema.define(version: 2020_06_30_115759) do
     t.index ["hotels_restaurant_id"], name: "index_categories_on_hotels_restaurant_id"
   end
 
+  create_table "checkouts", force: :cascade do |t|
+    t.bigint "basket_id"
+    t.bigint "user_id"
+    t.string "full_name", null: false
+    t.string "delivery_address", null: false
+    t.boolean "payment_verified", default: false
+    t.string "phone", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["basket_id"], name: "index_checkouts_on_basket_id"
+    t.index ["user_id"], name: "index_checkouts_on_user_id"
+  end
+
   create_table "hotels_restaurants", force: :cascade do |t|
     t.string "name", null: false
     t.string "address", null: false
@@ -65,7 +78,7 @@ ActiveRecord::Schema.define(version: 2020_06_30_115759) do
     t.string "last_name", null: false
     t.string "email", null: false
     t.string "password", null: false
-    t.bigint "phone", null: false
+    t.string "phone", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

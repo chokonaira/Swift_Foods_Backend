@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'checkout/add'
   root "welcome#index"
   post "signup" => "user#signup"
   post "login" => "user#login"
@@ -25,4 +26,5 @@ Rails.application.routes.draw do
   delete "basket_items" => "basket_item#delete_all_basket_items"
   post "baskets/create" => "basket#create_basket"
   get "baskets/:user_id" => "basket#gets_specific_user_basket"
+  post "checkouts/:user_id" => "checkout#checkout_a_basket"
 end

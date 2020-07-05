@@ -3,6 +3,8 @@ class User < ApplicationRecord
     self.password = BCrypt::Password.create(password) if password
   end
   has_many :baskets
+  has_many :checkouts
+
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :email, presence: true, :uniqueness => true
