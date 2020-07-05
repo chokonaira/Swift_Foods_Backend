@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'checkout/add'
   root "welcome#index"
   post "signup" => "user#signup"
   post "login" => "user#login"
