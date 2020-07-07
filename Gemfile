@@ -25,6 +25,8 @@ gem 'jbuilder', '~> 2.7'
 # gem 'redis', '~> 4.0'
 # gem cloudinary
 gem 'cloudinary'
+# gem CORS
+gem 'rack-cors'
 gem 'dotenv-rails'
 # Use Active Model has_secure_password
 gem 'bcrypt', '~> 3.1.7'
