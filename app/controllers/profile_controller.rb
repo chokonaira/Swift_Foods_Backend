@@ -1,5 +1,4 @@
 class ProfileController < ApplicationController
-  skip_before_action :verify_authenticity_token
 
   def user_profile
       user_profile = User.find_by(:id => params[:id])
