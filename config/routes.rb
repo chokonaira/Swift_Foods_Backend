@@ -26,5 +26,5 @@ Rails.application.routes.draw do
   post "baskets/create" => "basket#create_basket"
   get "baskets/:user_id" => "basket#gets_specific_user_basket"
   post "checkouts/:user_id" => "checkout#checkout_a_basket"
-  get "profile/:user_id" => "profile#user_profile"
+  get "profile/:id" => "profile#user_profile"
 end
