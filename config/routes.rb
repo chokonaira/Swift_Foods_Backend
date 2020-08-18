@@ -27,4 +27,5 @@ Rails.application.routes.draw do
   get "baskets/:user_id" => "basket#gets_specific_user_basket"
   post "checkouts/:user_id" => "checkout#checkout_a_basket"
   get "profile/:id" => "profile#user_profile"
+  patch "profile/image/:id" => "profile#update_user_image"
 end
