@@ -13,7 +13,8 @@ class BasketController < ApplicationController
   end
 
   def gets_specific_user_basket
-    basket = Basket.find_by(:user_id => params[:user_id])
+    basket = Basket.find_by(user_id: params[:user_id], id: params[:basket_id])
+    
     if basket.present?
       render json: { message: "Basket details fectch succesfully", 
                      basket: basket, 
@@ -27,6 +28,6 @@ class BasketController < ApplicationController
 
   private
   def basket_params
-    params.require(:basket).permit(:user_id)
+    params.require(:basket).permit(:user_id, :basket_id)
   end
 end
