@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get "products/categories" => "category#get_all_category" 
   get "products/categories/:id" => "category#get_specific_category_details" 
   patch "products/categories/:id" => "category#update_a_category" 
+  patch "products/categories/image/:id" => "category#update_category_image"
   delete "products/categories/:id" => "category#delete_a_category"
   post "products/add" => "product#add_a_product" 
   get "products/:id" => "product#get_a_product_details" 

@@ -46,6 +46,18 @@ class CategoryController < ApplicationController
     end
   end
 
+  def update_category_image
+    category = Category.find(params[:id])
+    if category.present?
+      upload_image = Cloudinary::Uploader.upload(params["image_url"], :width=>300, :height=>300, :crop=>"scale")
+      photo = { image_url: upload_image["url"] }
+      category.update!(photo)
+      render json: { message: "Category image uploaded succesfully", url: upload_image["url"] }, status: 200
+    else
+      render json: { error: "Internal server error" }, status: 500
+    end
+  end
+
   def delete_a_category
     category = Category.find_by(:id => params[:id])
     if category.present? 
