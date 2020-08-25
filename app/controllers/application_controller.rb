@@ -14,6 +14,9 @@ class ApplicationController < ActionController::Base
 
   def authenticate_request
     @current_user ||= Authorization.authorize(request.headers)
+    p '+'*30
+    # p request.headers.Authorization
+    p '+'*30
     render json: { error: "Missing token or Not Authorized" }, status: 401 unless @current_user
   end
 
