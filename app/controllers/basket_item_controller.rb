@@ -3,7 +3,7 @@ class BasketItemController < ApplicationController
 
   def add_basket_item
     basket_item = BasketItem.new(basket_item_params)
-    if user.valid? 
+    if basket_item.valid? 
       basket_item.save
       render json: { message: "Product added to Basket", basket_item: basket_item }, status: 201
     else
