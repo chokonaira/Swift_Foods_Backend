@@ -2,14 +2,12 @@ class BasketItemController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def add_basket_item
-    existing_basket_product = BasketItem.find_by(:product_id => params[:product_id])
-    if existing_basket_product.present?
-      existing_basket_product.update(:quantity => params[:quantity])
-      render json: { message: "Product quantity updated succesfully", basket_item: existing_basket_product }, status: 200
-    else
-      basket_item = BasketItem.new(basket_item_params)
+    basket_item = BasketItem.new(basket_item_params)
+    if user.valid? 
       basket_item.save
       render json: { message: "Product added to Basket", basket_item: basket_item }, status: 201
+    else
+      render json: basket_item.errors.details, status: 500
     end
   end
   def get_a_basket_item
