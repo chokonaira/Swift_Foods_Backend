@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   post "basket_items/add" => "basket_item#add_basket_item"
   get "basket_items/:id" => "basket_item#get_a_basket_item"
   delete "basket_items/:id" => "basket_item#delete_a_basket_item"
-  delete "basket_items" => "basket_item#delete_all_basket_items"
+  delete "basket_items/:basket_id" => "basket_item#delete_all_basket_items"
   post "baskets/create/:user_id" => "basket#create_basket"
   get "baskets/:user_id/:basket_id" => "basket#gets_specific_user_basket"
   post "checkouts/:user_id" => "checkout#checkout_a_basket"
