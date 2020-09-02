@@ -28,7 +28,7 @@ class BasketItemController < ApplicationController
     end
   end
   def delete_all_basket_items
-    basket_items = BasketItem.all.order(:id)
+    basket_items = BasketItem.all
     if basket_items.present?
       BasketItem.delete(basket_items)
       render json: { message: "Basket Items deleted succesfully" }, status: 200
